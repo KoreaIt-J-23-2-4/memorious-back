@@ -1,5 +1,6 @@
 package com.memorious.back.controller;
 
+import com.memorious.back.dto.BoardEditReqDto;
 import com.memorious.back.dto.BoardWriteReqDto;
 import com.memorious.back.dto.SearchBoardListReqDto;
 import com.memorious.back.service.BoardService;
@@ -44,11 +45,18 @@ public class BoardController {
         return ResponseEntity.ok(boardService.getBoardDetails(boardId));
     }
 
+    @PutMapping("/board/{boardId}")
+    public ResponseEntity<?> editBoard(@PathVariable int boardId,
+                                        @Valid @RequestBody BoardEditReqDto boardEditReqDto,
+                                        BindingResult bindingResult) {
+        System.out.println(boardId + " /// " + boardEditReqDto);
+
+        return ResponseEntity.ok(boardService.editBoard(boardId, boardEditReqDto));
+    }
     // 게시글 삭제
     @DeleteMapping("board/{boardId}")
     public ResponseEntity<?> deleteBoard(@PathVariable int boardId) {
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(boardService.deleteBoard(boardId));
     }
 }
 
